@@ -1,4 +1,4 @@
-db = db.getSiblingDB('pagejaune');
+db = db.getSiblingDB('pagejaunedb');
 
 
 db.jobs.insertMany([
