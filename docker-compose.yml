@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  pagejauneapp:
+      restart: always
+      build: .
+      ports:
+        - "3000:3000"
+
+      depends_on:
+        - mongodb
+      environment:
+        - MONGO_URI=mongodb
+        - MONGO_PORT=27017
+        - PORT=3000
+        - DB=pagejaune
+        - MONGO_INITDB_DATABASE=pagejaunedb
+
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=pagejaunedb
+    volumes: 
+      - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - mongodb:/data/db
+
+
+volumes:
+  mongodb:
